@@ -24,13 +24,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
-#include <gtkmozembed.h>
 
 #include "book.h"
 #include "toc.h"
 #include "bookmarks.h"
 #include "index.h"
-#include "html-gecko.h"
+#include "html-webkit.h"
 #include "utils.h"
 #include "models/chmfile.h"
 #include "models/link.h"
@@ -67,7 +66,7 @@ struct _CsBookPrivate {
         GtkUIManager    *ui_manager;
 
         CsChmfile       *model;
-        CsHtmlGecko     *active_html;
+        CsHtmlWebkit     *active_html;
 
         gchar           *context_menu_link;
         gchar           *book_message;
@@ -86,13 +85,13 @@ static void find_entry_changed_cb(GtkEntry *, CsBook *);
 static void find_entry_activate_cb(GtkEntry *, CsBook *);
 static void link_selected_cb(GtkWidget *, Link *, CsBook *);
 static void html_notebook_switch_page_cb(GtkNotebook *, GtkNotebookPage *, guint , CsBook *);
-static void html_location_changed_cb(CsHtmlGecko *, const gchar *, CsBook *);
-static gboolean html_open_uri_cb(CsHtmlGecko *, const gchar *, CsBook *);
-static void html_title_changed_cb(CsHtmlGecko *, const gchar *, CsBook *);
-static void html_context_normal_cb(CsHtmlGecko *, CsBook *);
-static void html_context_link_cb(CsHtmlGecko *, const gchar *, CsBook *);
-static void html_open_new_tab_cb(CsHtmlGecko *, const gchar *, CsBook *);
-static void html_link_message_cb(CsHtmlGecko *, const gchar *, CsBook *);
+static void html_location_changed_cb(CsHtmlWebkit *, const gchar *, CsBook *);
+static gboolean html_open_uri_cb(CsHtmlWebkit *, const gchar *, CsBook *);
+static void html_title_changed_cb(CsHtmlWebkit *, const gchar *, CsBook *);
+static void html_context_normal_cb(CsHtmlWebkit *, CsBook *);
+static void html_context_link_cb(CsHtmlWebkit *, const gchar *, CsBook *);
+static void html_open_new_tab_cb(CsHtmlWebkit *, const gchar *, CsBook *);
+static void html_link_message_cb(CsHtmlWebkit *, const gchar *, CsBook *);
 
 static void on_tab_close(GtkWidget *, CsBook *);
 static void on_copy(GtkAction *, CsBook *);
@@ -109,7 +108,7 @@ static void on_findbar_forward(GtkWidget *, CsBook *);
 static void update_book_message(CsBook *, const gchar *);
 static gint new_html_tab(CsBook *);
 static GtkWidget *new_tab_label(CsBook *, const gchar *);
-static void update_tab_title(CsBook *, CsHtmlGecko *, const gchar *);
+static void update_tab_title(CsBook *, CsHtmlWebkit *, const gchar *);
 static void update_tab_label_state(CsBook *);
 static void set_context_menu_link(CsBook *, const gchar *);
 static void find_text(GtkWidget *, CsBook *, gboolean);
@@ -388,7 +387,7 @@ html_notebook_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint
 
         if (new_page != NULL) {
                 g_debug("CS_BOOK >>> switch page callback, set active_html = %p", priv->active_html);
-                priv->active_html = CS_HTML_GECKO (new_page);
+                priv->active_html = CS_HTML_WEBKIT (new_page);
                 cs_book_reload_current_page(self);
         }
 
@@ -396,7 +395,7 @@ html_notebook_switch_page_cb(GtkNotebook *notebook, GtkNotebookPage *page, guint
 }
 
 static void
-html_location_changed_cb(CsHtmlGecko *html, const gchar *location, CsBook *self)
+html_location_changed_cb(CsHtmlWebkit *html, const gchar *location, CsBook *self)
 {
         g_debug("CS_BOOK >>> html location changed cb: %s", location);
 
@@ -422,7 +421,7 @@ html_location_changed_cb(CsHtmlGecko *html, const gchar *location, CsBook *self)
 }
 
 static gboolean
-html_open_uri_cb(CsHtmlGecko *html, const gchar *full_uri, CsBook *self)
+html_open_uri_cb(CsHtmlWebkit *html, const gchar *full_uri, CsBook *self)
 {
         g_debug("CS_BOOK >>> enter html_open_uri_cb with uri = %s", full_uri);
         if (full_uri == NULL || strlen(full_uri) == 0)
@@ -455,7 +454,7 @@ html_open_uri_cb(CsHtmlGecko *html, const gchar *full_uri, CsBook *self)
 }
 
 static void
-html_title_changed_cb(CsHtmlGecko *html, const gchar *title, CsBook *self)
+html_title_changed_cb(CsHtmlWebkit *html, const gchar *title, CsBook *self)
 {
         g_debug("CS_BOOK >>> html title changed cb title = %s", title);
 
@@ -469,7 +468,7 @@ html_title_changed_cb(CsHtmlGecko *html, const gchar *title, CsBook *self)
         update_tab_title(self, html, label_text);
 
         /* update bookmarks title entry */
-        gchar *location = cs_html_gecko_get_location(html);
+        gchar *location = cs_html_webkit_get_location(html);
 
         if (location != NULL && strlen(location)) {
                 if (!g_str_has_prefix(location, "about:")) {
@@ -485,13 +484,13 @@ html_title_changed_cb(CsHtmlGecko *html, const gchar *title, CsBook *self)
 }
 
 static void
-html_context_normal_cb(CsHtmlGecko *html, CsBook *self)
+html_context_normal_cb(CsHtmlWebkit *html, CsBook *self)
 {
         g_debug("CS_BOOK >>> html context-normal event");
 
         CsBookPrivate *priv = CS_BOOK_GET_PRIVATE (self);
 
-        gboolean can_copy = cs_html_gecko_can_copy_selection(priv->active_html);
+        gboolean can_copy = cs_html_webkit_can_copy_selection(priv->active_html);
         gtk_action_set_sensitive(gtk_action_group_get_action(priv->action_group, "Copy"),
                                  can_copy);
         gtk_action_set_sensitive(gtk_action_group_get_action(priv->action_group, "Back"),
@@ -505,7 +504,7 @@ html_context_normal_cb(CsHtmlGecko *html, CsBook *self)
 }
 
 static void
-html_context_link_cb(CsHtmlGecko *html, const gchar *link, CsBook *self)
+html_context_link_cb(CsHtmlWebkit *html, const gchar *link, CsBook *self)
 {
         g_debug("CS_BOOK >>> html context-link event: %s", link);
 
@@ -520,14 +519,14 @@ html_context_link_cb(CsHtmlGecko *html, const gchar *link, CsBook *self)
 }
 
 static void
-html_open_new_tab_cb(CsHtmlGecko *html, const gchar *location, CsBook *self)
+html_open_new_tab_cb(CsHtmlWebkit *html, const gchar *location, CsBook *self)
 {
         g_debug("CS_BOOK >>> html open new tab callback: %s", location);
         cs_book_new_tab_with_fulluri(self, location);
 }
 
 static void
-html_link_message_cb(CsHtmlGecko *html, const gchar *url, CsBook *self)
+html_link_message_cb(CsHtmlWebkit *html, const gchar *url, CsBook *self)
 {
         update_book_message(self, url);
 }
@@ -559,7 +558,7 @@ on_copy(GtkAction *action, CsBook *self)
 static void
 on_copy_page_location(GtkAction *action, CsBook *self)
 {
-        gchar *location = cs_html_gecko_get_location(CS_BOOK_GET_PRIVATE (self)->active_html);
+        gchar *location = cs_html_webkit_get_location(CS_BOOK_GET_PRIVATE (self)->active_html);
         GdkAtom selection = location != NULL ? GDK_SELECTION_PRIMARY : GDK_SELECTION_CLIPBOARD;
         gtk_clipboard_set_text(gtk_clipboard_get(selection), location, -1);
         g_free(location);
@@ -674,7 +673,7 @@ new_html_tab(CsBook *self)
 
         CsBookPrivate *priv = CS_BOOK_GET_PRIVATE (self);
 
-        GtkWidget *html = cs_html_gecko_new();
+        GtkWidget *html = cs_html_webkit_new();
         gtk_widget_show(html);
 
         g_signal_connect(G_OBJECT (html),
@@ -759,7 +758,7 @@ new_tab_label(CsBook *self, const gchar *str)
 }
 
 static void
-update_tab_title(CsBook *self, CsHtmlGecko *html, const gchar *title)
+update_tab_title(CsBook *self, CsHtmlWebkit *html, const gchar *title)
 {
         g_debug("CS_BOOK >>> update tab title = %s", title);
         GtkWidget *widget = gtk_notebook_get_tab_label(GTK_NOTEBOOK (CS_BOOK_GET_PRIVATE (self)->html_notebook),
@@ -788,14 +787,14 @@ find_text(GtkWidget *widget, CsBook *self, gboolean backward)
         const gchar *text = gtk_entry_get_text(GTK_ENTRY (find_entry));
 
         if (GTK_IS_BUTTON (widget) && backward && mcase) {
-                if (g_str_has_prefix(text, "gecko:about:")) {
-                    g_debug("CS_BOOK >>> call Gecko about: protocol = %s", text);
-                    cs_html_gecko_load_url(priv->active_html, text+6);
+                if (g_str_has_prefix(text, "webkit:about:")) {
+                    g_debug("CS_BOOK >>> call Webkit about: protocol = %s", text);
+                    cs_html_webkit_load_url(priv->active_html, text+6);
                     return;
                 }
         }
 
-        cs_html_gecko_find(priv->active_html, text, backward, mcase);
+        cs_html_webkit_find(priv->active_html, text, backward, mcase);
 }
 
 static void
@@ -836,7 +835,7 @@ static GList *get_toc_current(CsBook *self)
         CsBookPrivate *priv = CS_BOOK_GET_PRIVATE (self);
 
         GList *toc_list = cs_chmfile_get_toc_list(priv->model);
-        gchar *location = cs_html_gecko_get_location(priv->active_html);
+        gchar *location = cs_html_webkit_get_location(priv->active_html);
         const gchar *short_uri = get_short_uri(priv->model, location);
         GList *current = g_list_find_custom(toc_list, short_uri, uri_compare);
         g_free(location);
@@ -884,8 +883,8 @@ cs_book_set_model(CsBook *self, CsChmfile *model)
 
         priv->model = g_object_ref(model);
 
-        cs_html_gecko_set_variable_font(cs_chmfile_get_variable_font(model));
-        cs_html_gecko_set_fixed_font(cs_chmfile_get_fixed_font(model));
+        cs_html_webkit_set_variable_font(CS_BOOK_GET_PRIVATE (self)->active_html,cs_chmfile_get_variable_font(model));
+        cs_html_webkit_set_fixed_font(CS_BOOK_GET_PRIVATE (self)->active_html,cs_chmfile_get_fixed_font(model));
 
         gint cur_page = 0;
 
@@ -997,15 +996,15 @@ cs_book_load_url(CsBook *self, const gchar *uri, gboolean force_reload)
         }
 
         if (file_exist) {
-                gchar *location = cs_html_gecko_get_location(priv->active_html);
+                gchar *location = cs_html_webkit_get_location(priv->active_html);
                 if (force_reload || g_strcmp0(full_uri, location)) {
                         /* set user specified charset */
                         const gchar *charset = cs_chmfile_get_charset(CS_CHMFILE (priv->model));
                         if (charset && strlen(charset))
-                                cs_html_gecko_set_charset(priv->active_html, charset);
+                                cs_html_webkit_set_charset(priv->active_html, charset);
 
                         g_signal_handlers_block_by_func(priv->active_html, html_open_uri_cb, self);
-                        cs_html_gecko_load_url(priv->active_html, full_uri);
+                        cs_html_webkit_load_url(priv->active_html, full_uri);
                         g_signal_handlers_unblock_by_func(priv->active_html, html_open_uri_cb, self);
                 }
                 g_free(location);
@@ -1097,8 +1096,8 @@ cs_book_reload_current_page(CsBook *self)
         if (priv->model != NULL) {
                 const gchar *charset = cs_chmfile_get_charset(CS_CHMFILE (priv->model));
                 if (charset && strlen(charset))
-                        cs_html_gecko_set_charset(priv->active_html, charset);
-                cs_html_gecko_reload(priv->active_html);
+                        cs_html_webkit_set_charset(priv->active_html, charset);
+                cs_html_webkit_reload(priv->active_html);
         }
 }
 
@@ -1126,7 +1125,7 @@ cs_book_can_go_back(CsBook *self)
 {
         g_return_val_if_fail(IS_CS_BOOK (self), FALSE);
 
-        return cs_html_gecko_can_go_back(CS_BOOK_GET_PRIVATE (self)->active_html);
+        return cs_html_webkit_can_go_back(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 gboolean
@@ -1134,7 +1133,7 @@ cs_book_can_go_forward(CsBook *self)
 {
         g_return_val_if_fail(IS_CS_BOOK (self), FALSE);
 
-        return cs_html_gecko_can_go_forward(CS_BOOK_GET_PRIVATE (self)->active_html);
+        return cs_html_webkit_can_go_forward(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 void
@@ -1142,7 +1141,7 @@ cs_book_go_back(CsBook *self)
 {
         g_return_if_fail(IS_CS_BOOK (self));
 
-        cs_html_gecko_go_back(CS_BOOK_GET_PRIVATE (self)->active_html);
+        cs_html_webkit_go_back(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 void
@@ -1150,7 +1149,7 @@ cs_book_go_forward(CsBook *self)
 {
         g_return_if_fail(IS_CS_BOOK (self));
 
-        cs_html_gecko_go_forward(CS_BOOK_GET_PRIVATE (self)->active_html);
+        cs_html_webkit_go_forward(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 void
@@ -1186,7 +1185,7 @@ cs_book_zoom_in(CsBook *self)
 {
         g_return_if_fail(IS_CS_BOOK (self));
 
-        cs_html_gecko_increase_size(CS_BOOK_GET_PRIVATE (self)->active_html);
+        cs_html_webkit_increase_size(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 void
@@ -1194,7 +1193,7 @@ cs_book_zoom_out(CsBook *self)
 {
         g_return_if_fail(IS_CS_BOOK (self));
 
-        cs_html_gecko_decrease_size(CS_BOOK_GET_PRIVATE (self)->active_html);
+        cs_html_webkit_decrease_size(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 void
@@ -1202,7 +1201,7 @@ cs_book_zoom_reset(CsBook *self)
 {
         g_return_if_fail(IS_CS_BOOK (self));
 
-        cs_html_gecko_reset_size(CS_BOOK_GET_PRIVATE (self)->active_html);
+        cs_html_webkit_reset_size(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 gboolean
@@ -1213,7 +1212,7 @@ cs_book_can_copy(CsBook *self)
         CsBookPrivate *priv = CS_BOOK_GET_PRIVATE (self);
 
         if (priv->active_html != NULL)
-                return cs_html_gecko_can_copy_selection(priv->active_html);
+                return cs_html_webkit_can_copy_selection(priv->active_html);
         else
                 return FALSE;
 }
@@ -1223,7 +1222,7 @@ cs_book_copy(CsBook *self)
 {
         g_return_if_fail(IS_CS_BOOK (self));
 
-        cs_html_gecko_copy_selection(CS_BOOK_GET_PRIVATE (self)->active_html);
+        cs_html_webkit_copy_selection(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 void
@@ -1231,7 +1230,7 @@ cs_book_select_all(CsBook *self)
 {
         g_return_if_fail(IS_CS_BOOK (self));
 
-        cs_html_gecko_select_all(CS_BOOK_GET_PRIVATE (self)->active_html);
+        cs_html_webkit_select_all(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 gchar *
@@ -1239,7 +1238,7 @@ cs_book_get_location(CsBook *self)
 {
         g_return_val_if_fail(IS_CS_BOOK (self), NULL);
 
-        return cs_html_gecko_get_location(CS_BOOK_GET_PRIVATE (self)->active_html);
+        return cs_html_webkit_get_location(CS_BOOK_GET_PRIVATE (self)->active_html);
 }
 
 int

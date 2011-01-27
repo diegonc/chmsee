@@ -44,7 +44,7 @@
 #include "link.h"
 #include "utils.h"
 #include "components/book.h"
-#include "components/html-gecko.h"
+#include "components/html-webkit.h"
 #include "models/chmfile.h"
 
 typedef struct _ChmseePrivate ChmseePrivate;
@@ -282,7 +282,7 @@ chmsee_init(Chmsee *self)
                          self);
 
         /* start up html render engine */
-        if(!cs_html_gecko_init_system()) {
+        if(!cs_html_webkit_init_system()) {
                 g_error("Initialize html render engine failed!");
                 exit(1);
         }
@@ -624,8 +624,8 @@ on_about(GtkAction *action)
                          NULL);
 
         gtk_about_dialog_set_version(GTK_ABOUT_DIALOG (dialog), PACKAGE_VERSION);
-        gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG (dialog),
-                                      _("(Build with xulrunner " XULRUNNER_VERSION ")"));
+//        gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG (dialog),
+  //                                    _("(Build with xulrunner " XULRUNNER_VERSION ")"));
 
         g_object_unref(builder);
 }
@@ -679,7 +679,7 @@ on_quit(GtkAction *action, Chmsee *self)
 
         ChmseePrivate *priv = CHMSEE_GET_PRIVATE (self);
 
-        cs_html_gecko_shutdown_system();
+        cs_html_webkit_shutdown_system();
         priv->config->hpaned_pos = cs_book_get_hpaned_position(CS_BOOK (priv->book));
         gtk_widget_destroy(GTK_WIDGET (self));
 
@@ -1028,7 +1028,7 @@ chmsee_set_variable_font(Chmsee *self, const gchar *font_name)
         ChmseePrivate *priv = CHMSEE_GET_PRIVATE (self);
 
         if (priv->chmfile != NULL) {
-                cs_html_gecko_set_variable_font(font_name);
+//                cs_html_webkit_set_variable_font(font_name);
                 cs_chmfile_set_variable_font(priv->chmfile, font_name);
         } else {
                 g_free(priv->config->variable_font);
@@ -1057,7 +1057,7 @@ chmsee_set_fixed_font(Chmsee *self, const gchar *font_name)
         ChmseePrivate *priv = CHMSEE_GET_PRIVATE (self);
 
         if (priv->chmfile != NULL) {
-                cs_html_gecko_set_fixed_font(font_name);
+        ///        cs_html_webkit_set_fixed_font(font_name);
                 cs_chmfile_set_fixed_font(priv->chmfile, font_name);
         } else {
                 g_free(priv->config->fixed_font);

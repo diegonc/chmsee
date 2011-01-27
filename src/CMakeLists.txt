@@ -23,8 +23,7 @@ set(CHMSEE_SRCS
         components/index.h components/index.c
         components/bookmarks.h components/bookmarks.c
         components/treeview.h components/treeview.c
-        components/html-gecko.h components/html-gecko.c
-        components/gecko-utils.h components/gecko-utils.cpp
+        components/html-webkit.h components/html-webkit.c
         )
 set(CHMSEE_SRCS
         ${CHMSEE_SRCS}
