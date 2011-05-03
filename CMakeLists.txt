@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.6.4 FATAL_ERROR)
 
 set(PACKAGE_VERSION "1.3.1" )
 
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 
 find_package(PkgConfig)
 
@@ -51,7 +51,7 @@ add_subdirectory(data)
 add_subdirectory(po)
 #add_subdirectory(gtkmoz)
 
-SET(CPACK_SOURCE_PACKAGE_FILE_NAME "chmsee-1.3.0")
+SET(CPACK_SOURCE_PACKAGE_FILE_NAME "chmsee-1.3.1")
 SET(CPACK_SOURCE_GENERATOR "TGZ")
 SET(CPACK_SOURCE_IGNORE_FILES ".*~;/.git/;.gitignore;ID;TAGS;/gtkmoz/")
 
