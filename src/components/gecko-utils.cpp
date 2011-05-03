@@ -182,7 +182,7 @@ gecko_utils_init(void)
 
         static const GREVersionRange greVersion = {
                 "1.9a", PR_TRUE,
-                "2", PR_TRUE
+                "2.0.*", PR_TRUE
         };
 
         char xpcomLocation[PATH_MAX];
