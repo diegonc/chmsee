@@ -56,8 +56,8 @@
     <key id="open-tab-key" modifiers="accel" key="T" command="cmd_newtab"/>
     <key id="close-tab-key" modifiers="accel" key="W" command="cmd_closetab"/>
     <key id="panel-key" keycode="VK_F9" command="cmd_togglepanel"/>
-    <key id="zoomin-key" modifiers="accel" key="-" command="cmd_zoomin"/>
-    <key id="zoomout-key" modifiers="accel" key="=" command="cmd_zoomout"/>
+    <key id="zoomin-key" modifiers="accel" key="=" command="cmd_zoomin"/>
+    <key id="zoomout-key" modifiers="accel" key="-" command="cmd_zoomout"/>
     <key id="zoomreset-key" modifiers="accel" key="0" command="cmd_zoomreset"/>
     <key id="gohome-key" modifiers="accel" keycode="VK_HOME" command="cmd_gohome"/>
     <key id="goback-key" modifiers="alt" keycode="VK_LEFT" command="cmd_goback"/>

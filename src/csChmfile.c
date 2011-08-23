@@ -187,7 +187,7 @@ chm_system_info(struct fileinfo *info)
 
                         len = strlen((const char*)(buffer + index + 2));
                         info->hhc = (char *)malloc(len + 1);
-                        strcpy(info->hhc, buffer + index + 2);
+                        strcpy(info->hhc, (const char*)(buffer + index + 2));
                         d(printf("chm_system_info >>> hhc = %s\n", info->hhc));
 
                         break;
@@ -197,7 +197,7 @@ chm_system_info(struct fileinfo *info)
 
                         len = strlen((const char*)(buffer + index + 2));
                         info->hhk = (char *)malloc(len + 1);
-                        strcpy(info->hhk, buffer + index + 2);
+                        strcpy(info->hhk, (const char*)(buffer + index + 2));
                         d(printf("chm_system_info >>> hhk = %s\n", info->hhk));
 
                         break;
@@ -207,7 +207,7 @@ chm_system_info(struct fileinfo *info)
 
                         len = strlen((const char*)(buffer + index + 2));
                         info->homepage = (char *)malloc(len + 1);
-                        strcpy(info->homepage, buffer + index + 2);
+                        strcpy(info->homepage, (const char*)(buffer + index + 2));
                         d(printf("chm_system_info >>> homepage = %s\n", info->homepage));
 
                         break;
@@ -217,7 +217,7 @@ chm_system_info(struct fileinfo *info)
 
                         len = strlen((const char*)(buffer + index + 2));
                         info->bookname = (char *)malloc(len + 1);
-                        strcpy(info->bookname, buffer + index + 2);
+                        strcpy(info->bookname, (const char*)(buffer + index + 2));
                         d(printf("chm_system_info >>> bookname = %s\n", info->bookname));
 
                         break;
@@ -303,22 +303,22 @@ chm_windows_info(struct fileinfo *info)
         if (!info->hhc && hhc) {
                 len = strlen((const char*)(buffer + hhc));
                 info->hhc = (char *)malloc(len + 1);
-                strcpy(info->hhc, buffer + hhc);
+                strcpy(info->hhc, (const char*)(buffer + hhc));
         }
         if (!info->hhk && hhk) {
                 len = strlen((const char*)(buffer + hhk));
                 info->hhk = (char *)malloc(len + 1);
-                strcpy(info->hhk, buffer + hhk);
+                strcpy(info->hhk, (const char*)(buffer + hhk));
         }
         if (!info->homepage && homepage) {
                 len = strlen((const char*)(buffer + homepage));
                 info->homepage = (char *)malloc(len + 1);
-                strcpy(info->homepage, buffer + homepage);
+                strcpy(info->homepage, (const char*)(buffer + homepage));
         }
         if (!info->bookname && bookname) {
                 len = strlen((const char*)(buffer + bookname));
                 info->bookname = (char *)malloc(len + 1);
-                strcpy(info->bookname, buffer + bookname);
+                strcpy(info->bookname, (const char*)(buffer + bookname));
         }
 
         fclose(fp);
