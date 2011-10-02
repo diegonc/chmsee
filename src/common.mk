@@ -12,7 +12,7 @@ XPT = ${COMPONENTSDIR}/xpcomchm.xpt
 
 SDK_IDL = ${LIBXUL_SDK}/idl
 XPIDL = ${LIBXUL_SDK}/bin/xpidl
-XPT_LINK = ${LIBXUL_SDK}/sdk/bin/xpt.py link
+XPT_LINK = python ${LIBXUL_SDK}/sdk/bin/xpt.py link
 
 MOZ_DEBUG_DISABLE_DEFS	= -DNDEBUG -DTRIMMED
 
