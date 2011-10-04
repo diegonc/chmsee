@@ -7,3 +7,5 @@ CHMLIB_INCLUDES = -I/usr/include
 CHMLIB_LIBS = -lchm
 
 include ./common.mk
+
+XPT_LINK = python ${LIBXUL_SDK}/sdk/bin/xpt.py link
