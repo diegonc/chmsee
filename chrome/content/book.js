@@ -115,6 +115,10 @@ var Book = {
         book.url = CsScheme + book.homepage;
         return book;
     },
+
+    saveBookInfo: function (book) {
+        RDF.saveBookinfo(book);
+    },
 };
 
 var EmptyBook = {
@@ -124,6 +128,7 @@ var EmptyBook = {
     lastpage: "",
     url: "",
     title: "",
+    zoom: 1.0,
     hhc: null,
     hhcDS: null,
     hhk: null,

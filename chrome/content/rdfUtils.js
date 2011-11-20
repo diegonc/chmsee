@@ -47,6 +47,12 @@ var RDF = {
         object = rdfService.GetLiteral(book.charset);
         infoDS.Assert(res, predicate, object, true);
 
+        predicate = rdfService.GetResource("urn:chmsee:rdf#zoom");
+        var oldZoom = getTargetValue(infoDS, res, "urn:chmsee:rdf#zoom") || 1.0;
+        oldObject = rdfService.GetLiteral(oldZoom);
+        newObject = rdfService.GetLiteral(book.zoom);
+        infoDS.Change(res, predicate, oldObject, newObject);
+
         if (book.hhc !== null) {
             predicate = rdfService.GetResource("urn:chmsee:rdf#hhc");
             object = rdfService.GetLiteral(book.hhc);
@@ -80,6 +86,9 @@ var RDF = {
 
             book.charset = getTargetValue(infoDS, res, "urn:chmsee:rdf#charset") || "ISO-8859-1";
             d("RDF::loadBookinfo", "bookinfo charset = " + book.charset);
+
+            book.zoom = getTargetValue(infoDS, res, "urn:chmsee:rdf#zoom") || 1.0;
+            d("RDF::loadBookinfo", "bookinfo zoom = " + book.zoom);
 
             book.hhc = getTargetValue(infoDS, res, "urn:chmsee:rdf#hhc") || null;
             d("RDF::loadBookinfo", "bookinfo hhc = " + book.hhc);

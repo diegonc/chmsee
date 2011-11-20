@@ -140,6 +140,12 @@ var openFile = function () {
         Prefs.lastDir = fp.file.parent;
 
         var book = Book.getBookFromFile(fp.file);
+        if (book == null) {
+            let prompts =  Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+
+            prompts.alert(window, "ChmSee 2.0", "Open book failed!\nYou may need to rebuild the chmsee XPCOM component.");
+            return;
+        }
         var newTab = createBookTab(book);
 
         replaceTab(newTab, getCurrentTab());
@@ -283,16 +289,21 @@ var zoomIn = function () {
     var browser = contentTabbox.selectedPanel.browser;
     var zoom = browser.markupDocumentViewer.fullZoom;
     browser.markupDocumentViewer.fullZoom = zoom * 1.2;
+    var book = contentTabbox.selectedPanel.book;
+    book.zoom = browser.markupDocumentViewer.fullZoom;
 };
 
 var zoomOut = function () {
     var browser = contentTabbox.selectedPanel.browser;
     var zoom = browser.markupDocumentViewer.fullZoom;
     browser.markupDocumentViewer.fullZoom = zoom * 0.8;
+    var book = contentTabbox.selectedPanel.book;
+    book.zoom = browser.markupDocumentViewer.fullZoom;
 };
 
 var zoomReset = function () {
     contentTabbox.selectedPanel.browser.markupDocumentViewer.fullZoom = 1.0;
+    contentTabbox.selectedPanel.book.zoom = 1.0;
 };
 
 var togglePanel = function () {
@@ -386,6 +397,10 @@ var saveCurrentTabs = function () {
         var child = panels.childNodes[i];
         d("saveCurrentTabs", "url = " + child.browser.currentURI.spec);
         urls.push(child.browser.currentURI.spec);
+
+        if (child.book.type == "book") {
+            Book.saveBookInfo(child.book);
+        }
     }
 
     LastUrls.save(urls);
@@ -602,6 +617,11 @@ var refreshBookTab = function (tab) {
     if (book.url !== "") {
         tab.panel.browser.setAttribute("src", book.url);
     }
+
+    if (book.zoom) {
+        panel.browser.markupDocumentViewer.fullZoom = book.zoom;
+    }
+
 };
 
 var rebuildIndexTree = function (tree, data, filterText) {
