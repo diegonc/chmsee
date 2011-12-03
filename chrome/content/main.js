@@ -141,9 +141,7 @@ var openFile = function () {
 
         var book = Book.getBookFromFile(fp.file);
         if (book == null) {
-            let prompts =  Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
-
-            prompts.alert(window, "ChmSee 2.0", "Open book failed!\nYou may need to rebuild the chmsee XPCOM component.");
+            notice(window, "Open book failed!\nYou may need to rebuild the chmsee XPCOM component.");
             return;
         }
         var newTab = createBookTab(book);
@@ -342,6 +340,11 @@ var openPreferences = function () {
     window.openDialog("chrome://chmsee/content/preferences.xul", "Preferences", features);
 };
 
+var aboutConfig = function () {
+    appendTab(createPageTab(Book.getBookFromUrl("about:config")));
+    contentTabbox.selectedIndex = contentTabbox.tabs.itemCount - 1;
+};
+
 /*** Other functions ***/
 
 var openCmdLineFiles = function(cmdLine) {
@@ -371,22 +374,26 @@ var openCmdLineFiles = function(cmdLine) {
 };
 
 var loadSavedTabs = function () {
-    var data = LastUrls.read();
-    var urls = JSON.parse(data);
-    var book = null;
-    var newTab = null;
+    try {
+        var data = LastUrls.read();
+        var urls = JSON.parse(data);
+        var book = null;
+        var newTab = null;
 
-    for (var i = 0; i < urls.length; i += 1) {
-        book = Book.getBookFromUrl(urls[i]);
-        if (book.type === "book") {
-            newTab = createBookTab(book);
-            appendTab(newTab);
-            refreshBookTab(newTab);
-        } else {
-            appendTab(createPageTab(book));
+        for (var i = 0; i < urls.length; i += 1) {
+            book = Book.getBookFromUrl(urls[i]);
+            if (book.type === "book") {
+                newTab = createBookTab(book);
+                appendTab(newTab);
+                refreshBookTab(newTab);
+            } else {
+                appendTab(createPageTab(book));
+            }
         }
+    } catch (e) {
+        d("loadSavedTabs", e.name + ": " + e.message);
+        appendTab(createPageTab(Book.getBookFromUrl("about:mozilla")));
     }
-    contentTabbox.selectedIndex = 0;
 };
 
 var saveCurrentTabs = function () {
@@ -568,6 +575,11 @@ var removeTab = function (tab) {
     var tabs = contentTabbox.tabs;
     var tabpanels = contentTabbox.tabpanels;
     var currentIndex = contentTabbox.selectedIndex;
+
+    var book = tab.panel.book;
+    if (book.type == "book") {
+        Book.saveBookInfo(book);
+    }
 
     tabs.removeChild(tab.tab);
     tabpanels.removeChild(tab.panel);

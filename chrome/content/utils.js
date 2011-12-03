@@ -17,7 +17,7 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-var EXPORTED_SYMBOLS = ["Prefs", "LastUrls", "Bookmarks", "d", "CsScheme"];
+var EXPORTED_SYMBOLS = ["Prefs", "LastUrls", "Bookmarks", "d", "CsScheme", "notice"];
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -171,7 +171,6 @@ var Bookmarks = {
     },
 
     getItems: function () {
-        d("Bookmarks::getItems", "");
         var items = [];
         try {
             var historyService = Cc["@mozilla.org/browser/nav-history-service;1"].getService(Ci.nsINavHistoryService);
@@ -193,7 +192,7 @@ var Bookmarks = {
             }
 
             rootNode.containerOpen = false;
-        }catch(e) {
+        } catch(e) {
             d("Bookmarks::getItems", "error e.name = " + e.name + ", message = " + e.message);
         }
 
@@ -213,4 +212,11 @@ const CsDebug = false;
 var d = function (f, s) {
     if (CsDebug)
         dump(f + " >>> " + s + "\n");
+};
+
+
+var notice = function (win, msg) {
+    let prompts =  Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+
+    prompts.alert(win, "ChmSee 2.0", msg);
 };

@@ -39,6 +39,8 @@ var Book = {
         if (uri.scheme === "about") {
             if (uri.path === "mozilla") {
                 book.title = "Welcome";
+            } else if (uri.path === "config") {
+                book.title = "about:config";
             }
         } else if (uri.scheme === "file") {
             d("Book::getBookFromUrl", "path = " + uri.path);

@@ -180,7 +180,7 @@ var ContentHandler = function (parseInfo) {
     this.name = "";
     this.local = "";
     this.containers = [];
-    this.lastRes = null;
+    this.res = [];
     this.treeType = parseInfo.type; // false: list, true: tree
 };
 
@@ -194,8 +194,9 @@ ContentHandler.prototype = {
             if (this.treeType) {
                 if (this.containers.length == 0) {
                     resource = rdfService.GetResource("urn:chmsee:root");
+                    this.res.push(resource);
                 } else {
-                    resource = this.lastRes;
+                    resource = this.res[this.res.length - 1];
                 }
                 var container = rdfContainerUtils.MakeSeq(this.ds, resource);
                 this.containers.push(container);
@@ -225,6 +226,7 @@ ContentHandler.prototype = {
             if (this.treeType) {
                 if (this.containers.length > 0) {
                     this.containers.pop();
+                    this.res.pop();
                 }
             }
         } else if (tag.toLowerCase() == "object" && this.isItem) {
@@ -240,7 +242,7 @@ ContentHandler.prototype = {
 
             this.containers[this.containers.length - 1].AppendElement(res);
 
-            this.lastRes = res;
+            this.res.push(res);
             this.isItem = false;
         }
     },

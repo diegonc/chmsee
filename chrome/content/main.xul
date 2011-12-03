@@ -43,6 +43,8 @@
     <command id="cmd_removebookmark" oncommand="removeBookmark();"/>
 
     <command id="cmd_print" oncommand="onPrint();"/>
+
+    <command id="cmd_aboutConfig" oncommand="aboutConfig();"/>
   </commandset>
 
   <commandset id="updateCopyCmd"
@@ -130,6 +132,7 @@
         <menu id="help-menu" label="&helpMenu.label;" accesskey="&helpMenu.accesskey;">
           <menupopup id="help-popup">
             <menuitem label="&about.label;" accesskey="&about.accesskey;"/>
+            <menuitem label="&aboutConfig.label;" accesskey="&aboutConfig.accesskey;" command="cmd_aboutConfig" />
           </menupopup>
         </menu>
       </menubar>
