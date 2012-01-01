@@ -1,6 +1,6 @@
 ## -*- Mode: makefile -*-
 ## REPLACE WITH YOUR XULRUNNER SDK DIRECTORY
-LIBXUL_SDK = /usr/lib/xulrunner-devel-7.0
+LIBXUL_SDK := $(shell pkg-config --variable=sdkdir libxul)
 
 ## REPLACE WITH YOUR NSPR CFLAGS
 NSPR_INCLUDES = -I/usr/include/nspr

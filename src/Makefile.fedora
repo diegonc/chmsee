@@ -1,5 +1,5 @@
 ## -*- Mode: makefile -*-
-LIBXUL_SDK = /usr/lib64/xulrunner-sdk-2
+LIBXUL_SDK := $(shell pkg-config --variable=sdkdir libxul)
 
 NSPR_INCLUDES = -I/usr/include/nspr4
 NSPR_LIBS = -lplds4 -lplc4 -lnspr4 -lpthread -ldl
