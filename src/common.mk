@@ -11,10 +11,10 @@ IDL = ${INTERFACE}.idl
 XPT = ${COMPONENTSDIR}/xpcomchm.xpt
 
 SDK_IDL = ${LIBXUL_SDK}/idl
-XPIDL = python ${LIBXUL_SDK}/sdk/bin/xpidl.py
-XPIDL_HEADER = python ${LIBXUL_SDK}/sdk/bin/header.py
-XPIDL_TYPELIB = python ${LIBXUL_SDK}/sdk/bin/typelib.py
-XPT_LINK = python ${LIBXUL_SDK}/sdk/bin/xpt.py link
+XPIDL = python2 ${LIBXUL_SDK}/sdk/bin/xpidl.py
+XPIDL_HEADER = python2 ${LIBXUL_SDK}/sdk/bin/header.py
+XPIDL_TYPELIB = python2 ${LIBXUL_SDK}/sdk/bin/typelib.py
+XPT_LINK = python2 ${LIBXUL_SDK}/sdk/bin/xpt.py link
 
 MOZ_DEBUG_DISABLE_DEFS	= -DNDEBUG -DTRIMMED
 
@@ -45,8 +45,8 @@ LDFLAGS            += ${DEFINES} \
 all: ${TARGET}
 
 ${XPT}: ${IDL}
-	${XPIDL_HEADER} -o ${INTERFACE}.h -I ${SDK_IDL} ${IDL}
-	${XPIDL_TYPELIB} -o ${INTERFACE}.xpt -I ${SDK_IDL} ${IDL}
+	${XPIDL_HEADER} -o ${INTERFACE}.h -I ${SDK_IDL} --cachedir=. ${IDL}
+	${XPIDL_TYPELIB} -o ${INTERFACE}.xpt -I ${SDK_IDL} --cachedir=. ${IDL}
 	${XPT_LINK} ${XPT} ${INTERFACE}.xpt
 
 ${TARGET}: ${XPT} ${OBJS}
