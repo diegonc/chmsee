@@ -1,7 +1,7 @@
 LIBXUL_SDK = /usr/pkg/lib/xulrunner-sdk
 
-NSPR_INCLUDES = -I/usr/pkg/include/xulrunner
-NSPR_LIBS = -Wl,-R/usr/pkg/lib/xulrunner -pthread -L/usr/pkg/lib/xulrunner -lplds4 -lplc4 -lnspr4
+NSPR_INCLUDES = -I/usr/pkg/include/nspr
+NSPR_LIBS = -Wl,-R/usr/pkg/lib/nspr -pthread -L/usr/pkg/lib/nspr -lplds4 -lplc4 -lnspr4
 
 CHMLIB_INCLUDES = -I/usr/pkg/include
 CHMLIB_LIBS = -Wl,-R/usr/pkg/lib -L/usr/pkg/lib -lchm
