@@ -1,3 +1,5 @@
+## -*- Mode: makefile -*-
+
 LIBXUL_SDK = $(shell pkg-config --variable=sdkdir libxul)
 
 NSPR_INCLUDES = -I/usr/include/nspr

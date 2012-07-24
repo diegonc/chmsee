@@ -1,3 +1,5 @@
+## -*- Mode: makefile -*-
+
 LIBXUL_SDK = /usr/local/xulrunner-sdk
 XULRUNNER = /Library/Frameworks/XUL.framework/Versions/Current
 
@@ -10,7 +12,7 @@ CHMLIB_LIBS = -L/usr/local/lib -lchm
 PYTHON2 = /usr/bin/python
 XPCOMCHM = libxpcomchm.dylib
 
-DEFINES = -DXP_UNIX -DXP_MACOSX -DCS_DEBUG
-LDFLAGS = -shared -dynamiclib -L$(XULRUNNER) -L${LIBXUL_SDK}/bin -Wl,-executable_path,$(XULRUNNER)
+DEFINES = -DXP_UNIX -DXP_MACOSX
+LDFLAGS = -dynamiclib -L$(XULRUNNER) -L${LIBXUL_SDK}/bin -Wl,-executable_path,$(XULRUNNER)
 
 include ./common.mk

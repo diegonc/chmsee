@@ -6,4 +6,10 @@ NSPR_LIBS = -Wl,-R/usr/pkg/lib/nspr -pthread -L/usr/pkg/lib/nspr -lplds4 -lplc4 
 CHMLIB_INCLUDES = -I/usr/pkg/include
 CHMLIB_LIBS = -Wl,-R/usr/pkg/lib -L/usr/pkg/lib -lchm
 
+PYTHON2 = /usr/pkg/bin/python2.7
+XPCOMCHM = libxpcomchm.so
+
+DEFINES = -pthread
+LDFLAGS = -Wl,-soname,${TARGET} -Wl,-R${LIBXUL_SDK}/bin -L${LIBXUL_SDK}/bin -lpthread
+
 include ./common.mk

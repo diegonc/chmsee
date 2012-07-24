@@ -12,4 +12,15 @@ CHMLIB_INCLUDES = -I/usr/include
 ## REPLACE WITH YOUR CHMLIB LIBS
 CHMLIB_LIBS = -lchm
 
+## YOUR PYTHON 2.* PATH
+PYTHON2 = /usr/bin/python2
+
+## CHM XPCOM NAME ON YOUR SYSTEM
+XPCOMCHM = libxpcomchm.so
+
+## C/C++ DEFINES
+DEFINES = -pthread
+## LDFLAGS
+LDFLAGS = -Wl,-soname,${TARGET} -Wl,-R${LIBXUL_SDK}/bin -L${LIBXUL_SDK}/bin -lpthread
+
 include ./common.mk
