@@ -1,3 +1,4 @@
 content chmsee file:content/
 skin chmsee classic/1.0 file:skin/
+skin chmsee classic/1.0 file:skin/osx/ os=Darwin
 locale chmsee en-US file:locale/en-US/

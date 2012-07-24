@@ -20,7 +20,7 @@ MOZ_DEBUG_DISABLE_DEFS	= -DNDEBUG -DTRIMMED
 
 INCLUDES         = -I/usr/include -I. -I${LIBXUL_SDK}/include ${NSPR_INCLUDES} ${CHMLIB_INCLUDES}
 DEFINES		+= -Wall -Wpointer-arith -Wcast-align -Wno-variadic-macros \
-		   -O2 -fPIC -DPIC -fno-strict-aliasing -Dunix -fshort-wchar -pthread -pipe
+		   -O2 -fPIC -DPIC -fno-strict-aliasing -Dunix -fshort-wchar -pipe
 VISIBILITY_FLAGS = -fvisibility=hidden
 LIBXUL_CXXFLAGS  = -DMOZILLA_CLIENT -include mozilla-config.h
 
@@ -29,15 +29,11 @@ CXXFLAGS        += -fno-rtti -fno-exceptions -std=gnu++0x \
 	           -Woverloaded-virtual -Wsynth -Wno-ctor-dtor-privacy -Wno-non-virtual-dtor -Wno-invalid-offsetof \
 	           ${VISIBILITY_FLAGS} ${DEFINES} ${INCLUDES} ${LIBXUL_CXXFLAGS}
 
-
-XPCOM_FROZEN_LDOPTS = -Wl,-R${LIBXUL_SDK}/bin -L${LIBXUL_SDK}/bin -lxpcom -lmozalloc
-
 LDFLAGS            += ${DEFINES} \
 	              ${INCLUDES} \
 		      ${MOZ_DEBUG_DISABLE_DEFS} \
-		      -shared -Wl,-soname,${TARGET} -lpthread \
 		      ${LIBXUL_SDK}/lib/libxpcomglue_s.a \
-		      ${XPCOM_FROZEN_LDOPTS} \
+		      -lxpcom -lmozalloc \
 		      ${NSPR_LIBS} \
 		      ${CHMLIB_LIBS}
 
