@@ -1,7 +1,7 @@
 CHMSEE_ROOTDIR = ..
 COMPONENTSDIR = ${CHMSEE_ROOTDIR}/components
 
-TARGET = ${COMPONENTSDIR}/libxpcomchm.so
+TARGET = ${COMPONENTSDIR}/${XPCOMCHM}
 
 SRCS = csChm.cpp csChmModule.cpp csChmfile.c
 OBJS = csChm.o csChmModule.o csChmfile.o
@@ -11,15 +11,15 @@ IDL = ${INTERFACE}.idl
 XPT = ${COMPONENTSDIR}/xpcomchm.xpt
 
 SDK_IDL = ${LIBXUL_SDK}/idl
-XPIDL = python2 ${LIBXUL_SDK}/sdk/bin/xpidl.py
-XPIDL_HEADER = python2 ${LIBXUL_SDK}/sdk/bin/header.py
-XPIDL_TYPELIB = python2 ${LIBXUL_SDK}/sdk/bin/typelib.py
-XPT_LINK = python2 ${LIBXUL_SDK}/sdk/bin/xpt.py link
+XPIDL = ${PYTHON2} ${LIBXUL_SDK}/sdk/bin/xpidl.py
+XPIDL_HEADER = ${PYTHON2} ${LIBXUL_SDK}/sdk/bin/header.py
+XPIDL_TYPELIB = ${PYTHON2} ${LIBXUL_SDK}/sdk/bin/typelib.py
+XPT_LINK = ${PYTHON2} ${LIBXUL_SDK}/sdk/bin/xpt.py link
 
 MOZ_DEBUG_DISABLE_DEFS	= -DNDEBUG -DTRIMMED
 
 INCLUDES         = -I/usr/include -I. -I${LIBXUL_SDK}/include ${NSPR_INCLUDES} ${CHMLIB_INCLUDES}
-DEFINES		 = -Wall -Wpointer-arith -Wcast-align -Wno-variadic-macros \
+DEFINES		+= -Wall -Wpointer-arith -Wcast-align -Wno-variadic-macros \
 		   -O2 -fPIC -DPIC -fno-strict-aliasing -Dunix -fshort-wchar -pthread -pipe
 VISIBILITY_FLAGS = -fvisibility=hidden
 LIBXUL_CXXFLAGS  = -DMOZILLA_CLIENT -include mozilla-config.h
@@ -50,7 +50,7 @@ ${XPT}: ${IDL}
 	${XPT_LINK} ${XPT} ${INTERFACE}.xpt
 
 ${TARGET}: ${XPT} ${OBJS}
-	${CC} ${OBJS} -o ${TARGET} ${LDFLAGS}
+	${CXX} ${OBJS} -o ${TARGET} ${LDFLAGS}
 
 %.o: %.c
 	${CC} ${CFLAGS} -c $<

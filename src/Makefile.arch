@@ -6,4 +6,7 @@ NSPR_LIBS = -lplds4 -lplc4 -lnspr4 -lpthread -ldl
 CHMLIB_INCLUDES = -I/usr/include
 CHMLIB_LIBS = -lchm
 
+PYTHON2 = /usr/bin/python2
+XPCOMCHM = libxpcomchm.so
+
 include ./common.mk
