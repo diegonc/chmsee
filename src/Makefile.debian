@@ -8,6 +8,11 @@ NSPR_LIBS = -lplds4 -lplc4 -lnspr4 -lpthread -ldl
 CHMLIB_INCLUDES = -I/usr/include
 CHMLIB_LIBS = -lchm
 
+PYTHON2 = /usr/bin/python
+XPCOMCHM = libxpcomchm.so
+
+DEFINES = -pthread
+LDFLAGS = -Wl,-soname,${TARGET} -L${LIBXUL_SDK}/bin -lpthread
+
 include ./common.mk
 
-XPT_LINK = python ${LIBXUL_SDK}/sdk/bin/xpt.py link

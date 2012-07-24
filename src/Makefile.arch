@@ -1,5 +1,3 @@
-## -*- Mode: makefile -*-
-
 LIBXUL_SDK = $(shell pkg-config --variable=sdkdir libxul)
 
 NSPR_INCLUDES = -I/usr/include/nspr
@@ -10,5 +8,8 @@ CHMLIB_LIBS = -lchm
 
 PYTHON2 = /usr/bin/python2
 XPCOMCHM = libxpcomchm.so
+
+DEFINES = -pthread
+LDFLAGS = -Wl,-soname,${TARGET} -L${LIBXUL_SDK}/bin -lpthread
 
 include ./common.mk

@@ -21,6 +21,6 @@ XPCOMCHM = libxpcomchm.so
 ## C/C++ DEFINES
 DEFINES = -pthread
 ## LDFLAGS
-LDFLAGS = -Wl,-soname,${TARGET} -Wl,-R${LIBXUL_SDK}/bin -L${LIBXUL_SDK}/bin -lpthread
+LDFLAGS = -Wl,-soname,${TARGET} -L${LIBXUL_SDK}/bin -lpthread
 
 include ./common.mk
