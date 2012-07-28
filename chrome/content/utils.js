@@ -17,7 +17,7 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-var EXPORTED_SYMBOLS = ["Prefs", "LastUrls", "Bookmarks", "d", "CsScheme", "notice"];
+var EXPORTED_SYMBOLS = ["Prefs", "LastUrls", "Bookmarks", "d", "CsScheme", "notice", "geckoVersion"];
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -214,6 +214,8 @@ var d = function (f, s) {
         dump(f + " >>> " + s + "\n");
 };
 
+var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+var geckoVersion = appInfo.platformVersion;
 
 var notice = function (win, msg) {
     let prompts =  Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);

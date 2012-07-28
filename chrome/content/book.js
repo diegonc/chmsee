@@ -149,7 +149,10 @@ var convertToUTF8 = function (string, charset) {
     d("convertToUTF8", "string = " + string + ", charset = " + charset);
 
     var UTF8Service = Cc["@mozilla.org/intl/utf8converterservice;1"].getService(Ci.nsIUTF8ConverterService);
-    return UTF8Service.convertStringToUTF8(string, charset, false);
+    if (geckoVersion >= 15)
+        return UTF8Service.convertStringToUTF8(string, charset, false, false);
+    else
+        return UTF8Service.convertStringToUTF8(string, charset, false);
 };
 
 var md5Hash = function (file) {

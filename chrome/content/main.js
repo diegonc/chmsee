@@ -31,6 +31,8 @@ var contentTabbox = null;
 
 var onWindowLoad = function () {
     d("onWindowLoad", "init");
+    d("appInfo.platformVer", geckoVersion);
+
     window.addEventListener("resize", onResize, true);
 
     initTabbox();
