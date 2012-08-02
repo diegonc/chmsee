@@ -1,0 +1,18 @@
+LIBXUL_SDK = /usr/local/lib/firefox/
+
+NSPR_INCLUDES = -I/usr/local/include/nspr
+NSPR_LIBS = -pthread -L/usr/local/lib/nspr -lplds4 -lplc4 -lnspr4
+
+CHMLIB_INCLUDES = -I/usr/local/include
+CHMLIB_LIBS = -L/usr/local/lib -lchm
+
+PYTHON2 = /usr/local/bin/python2.7
+XPCOMCHM = libxpcomchm.so
+
+DEFINES = -pthread
+LDFLAGS = -Wl,-soname,${TARGET} -L${LIBXUL_SDK}/bin -lpthread
+
+CC = /usr/local/bin/gcc46
+CXX = /usr/local/bin/g++46
+
+include ./common.mk
