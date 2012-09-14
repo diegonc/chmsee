@@ -40,13 +40,13 @@ platform command from xulrunner sdk or firefox.
 
 In the following examples, ChmSee source directory is located in
 `~/downloads/chmsee`, xulrunner sdk is installed to
-`/usr/lib/xulrunner-14.0.1` and  firefox is installed to
+`/usr/lib/xulrunner-sdk` and  firefox is installed to
 `/usr/lib/firefox`.
 
 Launch ChmSee with xulrunner sdk tool:
 
     $ cd ~/downloads/chmsee
-    $ /usr/lib/xulrunner-14.0.1/xulrunner-bin application.ini
+    $ /usr/lib/xulrunner-sdk/xulrunner application.ini
 
 Launch ChmSee with firefox:
 
@@ -56,12 +56,12 @@ Launch ChmSee with firefox:
 Installing
 ==========
 
-You can also use xulrunner sdk tool *xulrunner-bin* to install ChmSee
+You can also use xulrunner sdk tool *xulrunner* to install ChmSee
 to any directory you want.
 
 If you want to install it to `~/tools/chmsee`, enter following command:
 
-    $ /usr/lib/xulrunner-14.0.1/xulrunner-bin --install-app ~/downloads/chmsee ~/tools
+    $ /usr/lib/xulrunner-sdk/xulrunner --install-app ~/downloads/chmsee ~/tools
 
 The `~/tools/chmsee` directory will be created and contains an execute
 file `chmsee`, running this file will launch ChmSee program.
@@ -72,7 +72,7 @@ directory located in the installed chmsee folder, if not, add one by
 yourself:
 
     $ cd ~/tools/chmsee
-    $ ln -s /usr/lib/xulrunner-14.0.1 xulrunner
+    $ ln -s /usr/lib/xulrunner-sdk xulrunner
 
 If you have *firefox* installed, this link can be changed to:
 
