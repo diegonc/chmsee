@@ -17,7 +17,7 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-var EXPORTED_SYMBOLS = ["Prefs", "LastUrls", "Bookmarks", "d", "CsScheme", "notice", "geckoVersion"];
+var EXPORTED_SYMBOLS = ["Prefs", "LastUrls", "Bookmarks", "convertStrToUTF8", "d", "CsScheme", "notice", "geckoVersion"];
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -203,6 +203,17 @@ var Bookmarks = {
 var url = function (spec) {
     var ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
     return ios.newURI(spec, null, null);
+};
+
+
+var convertStrToUTF8 = function (string, charset) {
+    d("convertStrToUTF8", "string = " + string + ", charset = " + charset);
+
+    var UTF8Service = Cc["@mozilla.org/intl/utf8converterservice;1"].getService(Ci.nsIUTF8ConverterService);
+    if (geckoVersion >= 15)
+        return UTF8Service.convertStringToUTF8(string, charset, false, false);
+    else
+        return UTF8Service.convertStringToUTF8(string, charset, false);
 };
 
 /*** Debug ***/

@@ -25,6 +25,7 @@ const Cr = Components.results;
 const Cu = Components.utils;
 
 Cu.import("chrome://chmsee/content/utils.js");
+Cu.import("chrome://chmsee/content/htmlEntities.js");
 
 const rdfService = Cc["@mozilla.org/rdf/rdf-service;1"].getService(Ci.nsIRDFService);
 const rdfContainerUtils = Cc["@mozilla.org/rdf/container-utils;1"].createInstance(Ci.nsIRDFContainerUtils);
@@ -179,6 +180,7 @@ var ContentHandler = function (parseInfo) {
     this.isItem = false;
     this.name = "";
     this.local = "";
+    this.charset = parseInfo.charset;
     this.containers = [];
     this.res = [];
     this.treeType = parseInfo.type; // false: list, true: tree
@@ -233,12 +235,16 @@ ContentHandler.prototype = {
             var res = rdfService.GetAnonymousResource();
 
             var predicate = rdfService.GetResource("urn:chmsee:rdf#name");
-            var object = rdfService.GetLiteral(this.name);
+            var nameUTF = convertStrToUTF8(html_entity_decode(this.name), this.charset);
+            var object = rdfService.GetLiteral(nameUTF);
             this.ds.Assert(res, predicate, object, true);
+            d("Handler::endElement", "name = " + this.name);
+            d("Handler::endElement", "name = " + nameUTF);
 
             predicate = rdfService.GetResource("urn:chmsee:rdf#local");
             object = rdfService.GetLiteral(this.folder + "/" + this.local);
             this.ds.Assert(res, predicate, object, true);
+            d("Handler::endElement", "object folder = " + this.folder + " local = " + this.local);
 
             this.containers[this.containers.length - 1].AppendElement(res);
 
@@ -256,14 +262,14 @@ ContentHandler.prototype = {
     },
 };
 
-var generateRdf = function (treeType, file, bookfolder, datasource, charset) {
-    d("RDF::generateRdf", "charset = " + charset);
+var generateRdf = function (treeType, file, bookfolder, datasource, bookCharset) {
+    d("RDF::generateRdf", "charset = " + bookCharset);
     var data = "";
     var fstream = Cc["@mozilla.org/network/file-input-stream;1"].createInstance(Ci.nsIFileInputStream);
     var cstream = Cc["@mozilla.org/intl/converter-input-stream;1"].createInstance(Ci.nsIConverterInputStream);
 
     fstream.init(file, -1, 0, 0);
-    cstream.init(fstream, charset, 0, 0);
+    cstream.init(fstream, bookCharset, 0, 0);
 
     let (str = {}) {
         let read = 0;
@@ -279,6 +285,6 @@ var generateRdf = function (treeType, file, bookfolder, datasource, charset) {
     sl.loadSubScript("chrome://chmsee/content/simpleparser.js", tmpNameSpace);
 
     var parser = new tmpNameSpace.SimpleHtmlParser();
-    var pinfo = {folder: bookfolder, ds: datasource, type: treeType};
+    var pinfo = {folder: bookfolder, ds: datasource, type: treeType, charset: bookCharset};
     parser.parse(data, new ContentHandler(pinfo));
 };
