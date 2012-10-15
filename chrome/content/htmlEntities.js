@@ -314,7 +314,7 @@ var html_entity_decode = function(string, quote_style) {
         tmp_str = '',
         entity = '';
 
-    if (string.match(/(&\w*;)+/)) {
+    if (!string.match(/(&\w*;)+/)) {
         return false;
     }
 
