@@ -313,6 +313,11 @@ var html_entity_decode = function(string, quote_style) {
         symbol = '',
         tmp_str = '',
         entity = '';
+
+    if (string.match(/(&\w*;)+/)) {
+        return false;
+    }
+
     tmp_str = string.toString();
 
     if (false === (hash_map = this.get_html_translation_table('HTML_ENTITIES', quote_style))) {

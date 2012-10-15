@@ -235,11 +235,17 @@ ContentHandler.prototype = {
             var res = rdfService.GetAnonymousResource();
 
             var predicate = rdfService.GetResource("urn:chmsee:rdf#name");
-            var nameUTF = convertStrToUTF8(html_entity_decode(this.name), this.charset);
+            var nameUTF = this.name;
+            var deStr = html_entity_decode(this.name);
+            d("Handler::endElement", "deStr = " + deStr);
+            if (deStr) {
+                nameUTF = convertStrToUTF8(deStr, this.charset);
+            }
+
             var object = rdfService.GetLiteral(nameUTF);
             this.ds.Assert(res, predicate, object, true);
             d("Handler::endElement", "name = " + this.name);
-            d("Handler::endElement", "name = " + nameUTF);
+            d("Handler::endElement", "nameUTF = " + nameUTF);
 
             predicate = rdfService.GetResource("urn:chmsee:rdf#local");
             object = rdfService.GetLiteral(this.folder + "/" + this.local);
