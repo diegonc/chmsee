@@ -70,7 +70,7 @@ void csChm::copyinfo(char **mTarget, char *iSource)
 
 NS_IMETHODIMP csChm::getAttribute(char **attr, char *m)
 {
-        NS_PRECONDITION(attr != nsnull, "null ptr");
+        NS_PRECONDITION(attr != nullptr, "null ptr");
         if (!attr)
                 return NS_ERROR_NULL_POINTER;
 
@@ -80,7 +80,7 @@ NS_IMETHODIMP csChm::getAttribute(char **attr, char *m)
                         return NS_ERROR_NULL_POINTER;
         }
         else {
-                *attr = nsnull;
+                *attr = nullptr;
         }
         return NS_OK;
 }
@@ -89,7 +89,7 @@ NS_IMPL_CLASSINFO(csChm, NULL, 0, CS_CHM_CID)
 NS_IMPL_ISUPPORTS1_CI(csChm, csIChm)
 
 /* long openChm (in nsILocalFile file); */
-NS_IMETHODIMP csChm::OpenChm(nsILocalFile *file, const char *folder, PRInt32 *_retval NS_OUTPARAM)
+NS_IMETHODIMP csChm::OpenChm(nsILocalFile *file, const char *folder, int32_t *_retval)
 {
         if (!file) {
                 *_retval = -1;
@@ -168,7 +168,7 @@ NS_IMETHODIMP csChm::GetHhk(char **aHhk)
 }
 
 /* readonly attribute PRUint32 lcid; */
-NS_IMETHODIMP csChm::GetLcid(PRUint32 *aLcid)
+NS_IMETHODIMP csChm::GetLcid(uint32_t *aLcid)
 {
         *aLcid = mLcid;
         return NS_OK;

@@ -30,5 +30,5 @@ interface csIChm : nsISupports
         readonly attribute string bookname;
         readonly attribute string hhc;
         readonly attribute string hhk;
-        readonly attribute PRUint32 lcid;
+        readonly attribute unsigned long lcid;
 };
