@@ -70,7 +70,7 @@ void csChm::copyinfo(char **mTarget, char *iSource)
 
 NS_IMETHODIMP csChm::getAttribute(char **attr, char *m)
 {
-        NS_PRECONDITION(attr != nullptr, "null ptr");
+        NS_PRECONDITION(attr != NULL, "null ptr");
         if (!attr)
                 return NS_ERROR_NULL_POINTER;
 
@@ -80,7 +80,7 @@ NS_IMETHODIMP csChm::getAttribute(char **attr, char *m)
                         return NS_ERROR_NULL_POINTER;
         }
         else {
-                *attr = nullptr;
+                *attr = NULL;
         }
         return NS_OK;
 }
