@@ -1,4 +1,4 @@
-LIBXUL_SDK = /usr/pkg/lib/xulrunner-sdk
+LIBXUL_SDK = $(shell pkg-config --variable=sdkdir libxul)
 
 NSPR_INCLUDES = -I/usr/pkg/include/nspr
 NSPR_LIBS = -Wl,-R/usr/pkg/lib/nspr -pthread -L/usr/pkg/lib/nspr -lplds4 -lplc4 -lnspr4
