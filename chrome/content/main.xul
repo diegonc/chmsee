@@ -132,7 +132,7 @@
         </menu>
         <menu id="help-menu" label="&helpMenu.label;" accesskey="&helpMenu.accesskey;">
           <menupopup id="help-popup">
-            <menuitem label="&about.label;" accesskey="&about.accesskey;" command="cmd_aboutChmSee"/>
+            <menuitem label="&about.label;" accesskey="&about.accesskey;" key="about-key" command="cmd_aboutChmSee"/>
             <menuitem label="&aboutConfig.label;" accesskey="&aboutConfig.accesskey;" command="cmd_aboutConfig" />
           </menupopup>
         </menu>
