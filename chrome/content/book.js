@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2011 Ji YongGang <jungleji@gmail.com>
+ *  Copyright (C) 2013 Ji YongGang <jungleji@gmail.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -37,8 +37,9 @@ var Book = {
         d("Book::getBookFromUrl", "scheme = " + uri.scheme);
 
         if (uri.scheme === "about") {
-            if (uri.path === "mozilla") {
-                book.title = "Welcome";
+            if (uri.path === "chmsee") {
+                book.title = "About ChmSee";
+                book.url = "chrome://chmsee/content/about.html";
             } else if (uri.path === "config") {
                 book.title = "about:config";
             }

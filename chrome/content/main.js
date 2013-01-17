@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2011 Ji YongGang <jungleji@gmail.com>
+ *  Copyright (C) 2013 Ji YongGang <jungleji@gmail.com>
  *
  *  ChmSee is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -156,6 +156,9 @@ var openFile = function () {
 var newTab = function () {
     var browser = contentTabbox.selectedPanel.browser;
     var url = browser.currentURI.spec;
+
+    if (url === "chrome://chmsee/content/about.html")
+        url = "about:chmsee";
 
     var book = Book.getBookFromUrl(url);
     var index = -1;
@@ -342,6 +345,11 @@ var openPreferences = function () {
     window.openDialog("chrome://chmsee/content/preferences.xul", "Preferences", features);
 };
 
+var aboutChmSee = function () {
+    appendTab(createPageTab(Book.getBookFromUrl("about:chmsee")));
+    contentTabbox.selectedIndex = contentTabbox.tabs.itemCount - 1;
+};
+
 var aboutConfig = function () {
     appendTab(createPageTab(Book.getBookFromUrl("about:config")));
     contentTabbox.selectedIndex = contentTabbox.tabs.itemCount - 1;
@@ -372,7 +380,7 @@ var openCmdLineFiles = function(cmdLine) {
     }
 
     if (count == 0)
-        appendTab(createPageTab(Book.getBookFromUrl("about:mozilla")));
+        appendTab(createPageTab(Book.getBookFromUrl("about:chmsee")));
 };
 
 var loadSavedTabs = function () {
@@ -394,7 +402,7 @@ var loadSavedTabs = function () {
         }
     } catch (e) {
         d("loadSavedTabs", e.name + ": " + e.message);
-        appendTab(createPageTab(Book.getBookFromUrl("about:mozilla")));
+        appendTab(createPageTab(Book.getBookFromUrl("about:chmsee")));
     }
 };
 
@@ -428,7 +436,7 @@ var initTabbox = function () {
     } else if (LastUrls.reopen) {
         loadSavedTabs();
     } else {
-        appendTab(createPageTab(Book.getBookFromUrl("about:mozilla")));
+        appendTab(createPageTab(Book.getBookFromUrl("about:chmsee")));
     }
     contentTabbox.selectedIndex = 0;
 };

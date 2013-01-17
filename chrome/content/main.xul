@@ -44,6 +44,7 @@
 
     <command id="cmd_print" oncommand="onPrint();"/>
 
+    <command id="cmd_aboutChmSee" oncommand="aboutChmSee();"/>
     <command id="cmd_aboutConfig" oncommand="aboutConfig();"/>
   </commandset>
 
@@ -69,6 +70,7 @@
     <key id="showfindbar-key" modifiers="accel" key="F" command="cmd_showfindbar"/>
     <key id="addbookmark-key" modifiers="accel" key="D" command="cmd_addbookmark"/>
     <key id="print-key" modifiers="accel" key="P" command="cmd_print"/>
+    <key id="about-key" keycode="VK_F1" command="cmd_aboutChmSee"/>
   </keyset>
 
   <popupset>
@@ -109,7 +111,6 @@
         </menu>
         <menu id="view-menu" label="&viewMenu.label;" accesskey="&viewMenu.accesskey;">
           <menupopup id="view-popup">
-            <menuitem label="&fullScreen.label;" accesskey="&fullScreen.accesskey;" oncommand="startDOMi();" />
             <menuitem label="&panel.label;" accesskey="&panel.accesskey;" key="panel-key" command="cmd_togglepanel" />
             <menuseparator />
             <menuitem label="&home.label;" accesskey="&home.accesskey;" key="gohome-key" command="cmd_gohome" />
@@ -131,7 +132,7 @@
         </menu>
         <menu id="help-menu" label="&helpMenu.label;" accesskey="&helpMenu.accesskey;">
           <menupopup id="help-popup">
-            <menuitem label="&about.label;" accesskey="&about.accesskey;"/>
+            <menuitem label="&about.label;" accesskey="&about.accesskey;" command="cmd_aboutChmSee"/>
             <menuitem label="&aboutConfig.label;" accesskey="&aboutConfig.accesskey;" command="cmd_aboutConfig" />
           </menupopup>
         </menu>
