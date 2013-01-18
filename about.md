@@ -9,9 +9,9 @@ Homepage: [http://code.google.com/p/chmsee](http://code.google.com/p/chmsee)
 Usage
 =====
 
-If your favorite browser is Firefox, you will find ChmSee looks like a simple one.
-Instead of displaying web pages from internet, ChmSee let you to view HTML pages from compiled CHM file.
-ChmSee benifits from the same xulrunner behind Firefox, so you can use the Firefox navigation commands and shortcuts in ChmSee.
+If your favorite browser is Firefox, you will find ChmSee looks like a
+simple one. ChmSee benifits from the same xulrunner behind Firefox,
+and you can use the similar Firefox navigation commands and shortcuts:
 
 * File
   * Open file: <code>Ctrl+O</code>
@@ -38,8 +38,8 @@ thanks.
 Authors
 =======
 
-ChmSee's original developer was zhong. 
-The recent versions (after 0.9.6) are developed by Ji YongGang and Li Daobing.
+ChmSee's original developer was zhong. The recent versions (after
+0.9.6) are developed by Ji YongGang and Li Daobing.
 
 Logo author
 ===========
