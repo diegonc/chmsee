@@ -8,29 +8,28 @@ Homepage: [http://code.google.com/p/chmsee](http://code.google.com/p/chmsee)
 Building
 ========
 
-For ChmSee 2.0(1.99+), ChmSee has been changed from GTK+ based
-application to a xulrunner application.
+ChmSee 2.0 has been refacted from GTK+ based to a xulrunner application.
 
-Now in ChmSee, most of codes use cross-platform languages: JavaScript,
-XUL, CSS. So building is unnecessary for them.
+Most of ChmSee codes use cross-platform languages: JavaScript, XUL,
+CSS, building is unnecessary for them.
 
-But you still need to compile a C/C++ component, it's a XPCOM
-component which is used to retrieve HTML and image from packed chm
-file. All source codes for this component are located in `chmsee/src`
-directory.
+But there is still a component you need to compile, because it is written
+by C++ language. This is an important component that used to retrieve
+HTML and image from packed chm file. The source codes for this
+component are located in `chmsee/src` directory.
 
-Before building, you must confirm *xulrunner sdk* and *chmlib* already
+Before compiling, you must confirm *xulrunner sdk* and *chmlib* already
 installed in your system.
 
 Then `cd chmsee/src` directory, choose one of Makefile.${OS} files and
-rename it to Makefile. If there is no proper Makefile.${OS} file for
-your OS in chmsee distribution, you can create one by copying from a
-similar Makefile.${OS} or Makefile.sample and modify the INCLUDE, LIB
-or CFLAGS variables in it.
+rename it to Makefile. If there isn't proper Makefile.${OS} file for
+your OS in chmsee distribution, you can create it yourself by copying
+a similar Makefile.${OS} or Makefile.sample to Makefile and modify the
+INCLUDE, LIB or CFLAGS variables in it.
 
-When the Makefile is ready, type GNU `make` in the `chmsee/src`
-directory. If building succeed, the compiled XPCOM component and its
-xpt defines will be output to `chmsee/components` directory.
+If the Makefile is ready, type GNU `make` in the `chmsee/src`
+directory. After building finished, the compiled XPCOM component and
+its xpt defines will be output to `chmsee/components` directory.
 
 Running
 =======
@@ -39,9 +38,8 @@ You can launch ChmSee immediately in the chmsee folder with xulrunner
 platform command from xulrunner sdk or firefox.
 
 In the following examples, ChmSee source directory is located in
-`~/downloads/chmsee`, xulrunner sdk is installed to
-`/usr/lib/xulrunner-sdk` and  firefox is installed to
-`/usr/lib/firefox`.
+`~/downloads/chmsee`, and xulrunner sdk is installed to
+`/usr/lib/xulrunner-sdk`, firefox is installed to `/usr/lib/firefox`.
 
 Launch ChmSee with xulrunner sdk tool:
 
@@ -57,7 +55,7 @@ Installing
 ==========
 
 You can also use xulrunner sdk tool *xulrunner* to install ChmSee
-to any directory you want.
+to any directory.
 
 If you want to install it to `~/tools/chmsee`, enter following command:
 
@@ -82,7 +80,7 @@ If you have *firefox* installed, this link can be changed to:
 Report bug
 ==========
 
-If you encounter any ChmSee problem, please issue them to
+If you encounter any ChmSee problem, please issue to
 [http://code.google.com/p/chmsee/issues/entry](http://code.google.com/p/chmsee/issues/entry),
 thanks.
 
@@ -91,4 +89,4 @@ About ChmSee logo
 
 ChmSee logo comes from Open Clip Art Library.
 [http://www.openclipart.org/detail/17922](http://www.openclipart.org/detail/17922)
-The logo author is AJ Ashton.
+It's author is AJ Ashton, thanks.
