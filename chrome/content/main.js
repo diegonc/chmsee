@@ -157,9 +157,6 @@ var newTab = function () {
     var browser = contentTabbox.selectedPanel.browser;
     var url = browser.currentURI.spec;
 
-    if (url === "chrome://chmsee/content/about.html")
-        url = "about:chmsee";
-
     var book = Book.getBookFromUrl(url);
     var index = -1;
 

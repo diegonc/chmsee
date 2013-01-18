@@ -31,6 +31,11 @@ var Book = {
     getBookFromUrl: function(url) {
         d("Book::getBookFromUrl", "url = " + url);
         var book = newBook();
+
+        if (url === "chrome://chmsee/content/about.html") {
+            url = "about:chmsee";
+        }
+
         book.url = url;
 
         var uri = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService).newURI(url, null, null);

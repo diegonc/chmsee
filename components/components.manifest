@@ -1,6 +1,3 @@
 interfaces xpcomchm.xpt
 binary-component libxpcomchm.so
 binary-component libxpcomchm.dylib os=Darwin
-
-component {e75fd986-51d4-11e0-938b-00241d8cf371} csprotocol.js
-contract @mozilla.org/network/protocol;1?name=chmsee {e75fd986-51d4-11e0-938b-00241d8cf371}
