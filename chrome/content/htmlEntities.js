@@ -278,8 +278,8 @@ function get_html_translation_table (table, quote_style) {
     entities['60'] = '&lt;';
     entities['62'] = '&gt;';
 
-    entities['272'] = '&Dstrok;';
-    entities['273'] = '&dstrok;';
+    // entities['272'] = '&Dstrok;';
+    // entities['273'] = '&dstrok;';
 
     // ascii decimals to real symbols
     for (decimal in entities) {

@@ -207,7 +207,7 @@ var url = function (spec) {
 
 
 var convertStrToUTF8 = function (string, charset) {
-    d("convertStrToUTF8", "string = " + string + ", charset = " + charset);
+    // d("convertStrToUTF8", "string = " + string + ", charset = " + charset);
 
     var UTF8Service = Cc["@mozilla.org/intl/utf8converterservice;1"].getService(Ci.nsIUTF8ConverterService);
     if (geckoVersion >= 15)
