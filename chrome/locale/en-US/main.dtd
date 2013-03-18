@@ -51,7 +51,7 @@
 <!ENTITY helpMenu.accesskey "h">
 <!ENTITY about.label "About">
 <!ENTITY about.accesskey "a">
-<!ENTITY aboutConfig.label "about:config">
+<!ENTITY aboutConfig.label "Open about:config">
 <!ENTITY aboutConfig.accesskey "c">
 <!ENTITY openCmd.tooltip "Open a CHM file">
 <!ENTITY togglePanel.label "Show/Hide panel">

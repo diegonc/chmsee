@@ -39,13 +39,13 @@
     <command id="cmd_selectAll" oncommand="goDoCommand('cmd_selectAll');"/>
 
     <command id="cmd_preferences" oncommand="openPreferences();"/>
+    <command id="cmd_aboutConfig" oncommand="aboutConfig();"/>
     <command id="cmd_addbookmark" oncommand="addBookmark();"/>
     <command id="cmd_removebookmark" oncommand="removeBookmark();"/>
 
     <command id="cmd_print" oncommand="onPrint();"/>
 
     <command id="cmd_aboutChmSee" oncommand="aboutChmSee();"/>
-    <command id="cmd_aboutConfig" oncommand="aboutConfig();"/>
   </commandset>
 
   <commandset id="updateCopyCmd"
@@ -106,6 +106,7 @@
             <menuitem label="&selectall.label;" accesskey="&selectall.accesskey;" command="cmd_selectAll" />
             <menuseparator />
             <menuitem label="&find.label;" accesskey="&find.accesskey;" key="showfindbar-key" command="cmd_showfindbar" />
+            <menuitem label="&aboutConfig.label;" accesskey="&aboutConfig.accesskey;" command="cmd_aboutConfig" />
             <menuitem label="&preferences.label;" accesskey="&preferences.accesskey;" command="cmd_preferences" />
           </menupopup>
         </menu>
@@ -133,7 +134,6 @@
         <menu id="help-menu" label="&helpMenu.label;" accesskey="&helpMenu.accesskey;">
           <menupopup id="help-popup">
             <menuitem label="&about.label;" accesskey="&about.accesskey;" key="about-key" command="cmd_aboutChmSee"/>
-            <menuitem label="&aboutConfig.label;" accesskey="&aboutConfig.accesskey;" command="cmd_aboutConfig" />
           </menupopup>
         </menu>
       </menubar>
