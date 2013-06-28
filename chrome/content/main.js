@@ -690,18 +690,18 @@ var getCurrentTab = function () {
 };
 
 var adjustTabWidth = function (tabs) {
-    var winWidth = window.outerWidth;
-    var tabCount = tabs.itemCount;
-    var tabWidth = Math.round(winWidth/tabCount);
+    // var winWidth = window.outerWidth;
+    // var tabCount = tabs.itemCount;
+    // var tabWidth = Math.round(winWidth/tabCount);
 
-    var totalWidth = 0;
+    // var totalWidth = 0;
 
-    for (var i = 0; i < tabCount - 1; i++) {
-        tabs.getItemAtIndex(i).width = tabWidth;
-        totalWidth += tabWidth;
-    }
+    // for (var i = 0; i < tabCount - 1; i++) {
+    //     tabs.getItemAtIndex(i).width = tabWidth;
+    //     totalWidth += tabWidth;
+    // }
 
-    tabs.getItemAtIndex(tabCount-1).width = winWidth - totalWidth + 2*i;
+    // tabs.getItemAtIndex(tabCount-1).width = winWidth - totalWidth + 2*i;
 };
 
 // Call DOM inspector for debugging
