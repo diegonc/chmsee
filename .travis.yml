@@ -5,6 +5,6 @@ branches:
 language: c
 
 install:
-  - "sh .travis/pacman/build.sh"
+  - "bash .travis/pacman/build.sh"
 
 script: true
