@@ -1,0 +1,10 @@
+branches:
+  only:
+    - integration
+
+language: c
+
+install:
+  - "sh .travis/pacman/build.sh"
+
+script: true
