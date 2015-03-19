@@ -38,7 +38,7 @@ mkdir -p "$DB_DIR"
 mkdir -p "$CACHE_DIR"
 mkdir -p "$LOG_DIR"
 
-sudo pacman --config "$PAC_CONF" --noconfirm --noprogessbar -Sy
-sudo pacman --config "$PAC_CONF" --noconfirm --noprogessbar -S base-devel xulrunner
+sudo pacman --config "$PAC_CONF" --noconfirm --noprogressbar -Sy
+sudo pacman --config "$PAC_CONF" --noconfirm --noprogressbar -S base-devel xulrunner
 
 cd "$CWD"
