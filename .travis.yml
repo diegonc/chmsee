@@ -5,7 +5,8 @@ branches:
 language: c
 
 install:
-  - "bash .travis/pacman/build.sh"
-  - "bash .travis/arch-root/build.sh"
+  - "bash .travis/sqlite/build.sh"
+  - "bash .travis/xulrunner/build.sh"
+  - "sudo apt-get install libchm-dev"
 
 script: "bash .travis/build.sh"
