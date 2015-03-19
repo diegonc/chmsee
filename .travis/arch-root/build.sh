@@ -34,8 +34,6 @@ Server = http://mirror.rackspace.com/archlinux/\$repo/os/\$arch
 
 EOF
 
-cat "$PAC_CONF"
-
 mkdir -p "$ARCH_DIR"
 mkdir -p "$DB_DIR"
 mkdir -p "$CACHE_DIR"
