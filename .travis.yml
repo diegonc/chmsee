@@ -5,7 +5,6 @@ branches:
 language: c
 
 install:
-  - "sh .travis/sqlite/build.sh"
-  - "sh .travis/xulrunner/build.sh"
+  - "sh .travis/pacman/build.sh"
 
-script: "sh .travis/build.sh"
+script: true
