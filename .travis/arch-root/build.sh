@@ -11,6 +11,8 @@ ARCH_DIR="$DEPS_DIR/arch-root"
 DB_DIR="$ARCH_DIR/var/lib/pacman"
 CACHE_DIR="$ARCH_DIR/var/cache/pacman/pkg"
 LOG_DIR="$ARCH_DIR/var/log"
+PACKAGES="bash bzip2 coreutils diffutils file findutils gawk gcc-libs \
+          gettext glibc grep gzip less perl sed tar base-devel xulrunner"
 
 cat > "$PAC_CONF" << EOF
 [options]
@@ -40,6 +42,6 @@ mkdir -p "$CACHE_DIR"
 mkdir -p "$LOG_DIR"
 
 sudo pacman --config "$PAC_CONF" --noconfirm --noprogressbar -Sy
-sudo pacman --config "$PAC_CONF" --noconfirm --noprogressbar -S base-devel xulrunner
+sudo pacman --config "$PAC_CONF" --noconfirm --noprogressbar -S $PACKAGES
 
 cd "$CWD"
