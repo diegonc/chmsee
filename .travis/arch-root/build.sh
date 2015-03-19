@@ -22,13 +22,13 @@ SigLevel = Never
 Architecture = auto
 
 [core]
-Server = ftp://ftp.archlinux.org/\$repo/os/\$arch
+Server = http://mirror.rackspace.com/archlinux/\$repo/os/\$arch
 
 [extra]
-Server = ftp://ftp.archlinux.org/\$repo/os/\$arch
+Server = http://mirror.rackspace.com/archlinux/\$repo/os/\$arch
 
 [community]
-Server = ftp://ftp.archlinux.org/\$repo/os/\$arch
+Server = http://mirror.rackspace.com/archlinux/\$repo/os/\$arch
 
 EOF
 
