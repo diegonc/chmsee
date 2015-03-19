@@ -21,13 +21,13 @@ LogFile = $LOG_DIR/pacman.log
 SigLevel = Never
 
 [core]
-Server = ftp://ftp.archlinux.org/$repo/os/$arch
+Server = ftp://ftp.archlinux.org/\$repo/os/\$arch
 
 [extra]
-Server = ftp://ftp.archlinux.org/$repo/os/$arch
+Server = ftp://ftp.archlinux.org/\$repo/os/\$arch
 
 [community]
-Server = ftp://ftp.archlinux.org/$repo/os/$arch
+Server = ftp://ftp.archlinux.org/\$repo/os/\$arch
 
 EOF
 
