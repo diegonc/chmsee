@@ -1,5 +1,15 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-cd src
-cp Makefile.arch Makefile
-make
+CWD=`pwd`
+
+set -e
+trap 'STATUS=$?; cd "$CWD"; exit $STATUS' ERR
+
+DEPS_DIR="`cd .. && pwd`/chmsee-deps"
+ARCH_DIR="$DEPS_DIR/arch-root"
+SRC_DIR="$ARCH_DIR/chmsee"
+
+mkdir "$SRC_DIR"
+sudo mount --bind "$CWD" "$SRC_DIR"
+
+sudo chroot "$ARCH_DIR" /usr/bin/bash -c 'cd /chmsee/src && make -f Makefile.arch'
