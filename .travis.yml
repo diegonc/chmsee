@@ -1,0 +1,11 @@
+branches:
+  only:
+    - integration
+
+language: c
+
+install:
+  - "sh .travis/sqlite/build.sh"
+  - "sh .travis/xulrunner/build.sh"
+
+script: "sh .travis/build.sh"
