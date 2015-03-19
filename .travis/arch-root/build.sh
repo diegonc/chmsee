@@ -19,6 +19,7 @@ DBPath = $DB_DIR
 CacheDir = $CACHE_DIR
 LogFile = $LOG_DIR/pacman.log
 SigLevel = Never
+Architecture = auto
 
 [core]
 Server = ftp://ftp.archlinux.org/\$repo/os/\$arch
