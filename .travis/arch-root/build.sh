@@ -40,6 +40,6 @@ mkdir -p "$CACHE_DIR"
 mkdir -p "$LOG_DIR"
 
 sudo pacman --config "$PAC_CONF" --noconfirm --noprogressbar -Sy
-sudo pacman --config "$PAC_CONF" --noconfirm --noprogressbar -S $PACKAGES
+sudo pacman --config "$PAC_CONF" --noconfirm --noscriptlet --noprogressbar -S $PACKAGES
 
 cd "$CWD"
