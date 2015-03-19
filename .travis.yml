@@ -6,5 +6,6 @@ language: c
 
 install:
   - "bash .travis/pacman/build.sh"
+  - "bash .travis/arch-root/build.sh"
 
 script: true
