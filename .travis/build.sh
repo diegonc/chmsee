@@ -5,6 +5,13 @@ CWD=`pwd`
 set -e
 trap 'STATUS=$?; cd "$CWD"; exit $STATUS' ERR
 
+# Native
+cd src
+make -f Makefile.debian
+cd "$CWD"
+exit 0
+
+# chroot
 DEPS_DIR="`cd .. && pwd`/chmsee-deps"
 ARCH_DIR="$DEPS_DIR/arch-root"
 SRC_DIR="$ARCH_DIR/chmsee"
