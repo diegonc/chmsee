@@ -1,0 +1,36 @@
+. $topsrcdir/xulrunner/config/mozconfig
+
+ac_add_options --prefix=/usr
+ac_add_options --libdir=/usr/lib
+
+# System libraries
+ac_add_options --with-system-nspr
+ac_add_options --with-system-nss
+ac_add_options --with-system-jpeg
+ac_add_options --with-system-zlib
+ac_add_options --with-system-bz2
+# Ubuntu 12.04 does not have support for APNG in libpng
+#ac_add_options --with-system-png
+ac_add_options --with-system-libevent
+# Ubuntu 12.04 does not have a recent enough libvpx
+#ac_add_options --with-system-libvpx
+# Ubuntu 12.04 doen't have a recent enough version
+#ac_add_options --with-system-icu
+ac_add_options --enable-system-hunspell
+ac_add_options --enable-system-sqlite
+ac_add_options --enable-system-ffi
+# Ubuntu 12.04 doesn't build cairo with tee support
+#ac_add_options --enable-system-cairo
+ac_add_options --enable-system-pixman
+ac_add_options --with-pthreads
+
+# Features
+ac_add_options --enable-startup-notification
+ac_add_options --enable-gstreamer=0.10
+ac_add_options --disable-crashreporter
+ac_add_options --disable-updater
+ac_add_options --disable-tests
+ac_add_options --disable-installer
+
+# https://bugzilla.mozilla.org/show_bug.cgi?id=955876
+#ac_add_options --enable-release
