@@ -4,6 +4,9 @@ branches:
 
 language: c
 
+before_install:
+  - "sudo apt-get update"
+
 install:
   - "bash .travis/sqlite/build.sh"
   - "bash .travis/xulrunner/build.sh"
