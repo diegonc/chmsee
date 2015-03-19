@@ -8,4 +8,4 @@ install:
   - "bash .travis/pacman/build.sh"
   - "bash .travis/arch-root/build.sh"
 
-script: true
+script: "bash .travis/build.sh"
