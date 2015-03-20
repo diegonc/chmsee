@@ -7,9 +7,6 @@ trap 'STATUS=$?; cd "$CWD"; exit $STATUS' ERR
 
 XULRUNNER_SDK=`cd .. && pwd`/chmsee-deps/xulrunner/xulrunner-sdk
 
-sudo apt-get install libchm-dev
-
-# Native
 cd src
 
 cat > Makefile << EOF
@@ -33,14 +30,3 @@ EOF
 make
 
 cd "$CWD"
-exit 0
-
-# chroot
-DEPS_DIR="`cd .. && pwd`/chmsee-deps"
-ARCH_DIR="$DEPS_DIR/arch-root"
-SRC_DIR="$ARCH_DIR/chmsee"
-
-mkdir "$SRC_DIR"
-sudo mount --bind "$CWD" "$SRC_DIR"
-
-sudo chroot "$ARCH_DIR" /usr/bin/bash -c 'cd /chmsee/src && make -f Makefile.arch'
