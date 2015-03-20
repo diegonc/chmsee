@@ -7,8 +7,6 @@ trap 'STATUS=$?; cd "$CWD"; exit $STATUS' ERR
 
 XULRUNNER_SDK=`cd .. && pwd`/chmsee-deps/xulrunner/xulrunner-sdk
 
-sudo apt-get install libchm-dev
-
 # Native
 cd src
 
