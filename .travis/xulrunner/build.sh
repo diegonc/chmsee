@@ -22,7 +22,31 @@ tar -xjf "xulrunner-$VERSION.source.tar.bz2" -C src
 cd src/mozilla-release
 cp "$CWD/.travis/xulrunner/mozconfig" .mozconfig
 
-make -f client.mk build
+heartbeat() {
+  local i=0
+  while true; do
+    echo -n ".";
+    let "i += 1"
+    if [ "$i" -eq 79 ]; then
+      echo
+      let i=0
+    fi
+    sleep 1;
+  done
+}
+heartbeat &
+HEARTBEAT_PID=$!
+
+make -f client.mk build | gzip -c > "$WORKING_DIR/build.log.gz" || {
+	STATUS=$?
+	kill $HEARTBEAT_PID
+	echo
+	echo Recent log:
+	zcat "$WORKING_DIR/build.log.gz" | tail -n500
+	exit $STATUS
+}
+kill $HEARTBEAT_PID
+
 sudo make -f client.mk DESTDIR="/usr" install
 
 cd "$CWD"
