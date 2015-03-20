@@ -10,8 +10,6 @@ VERSION=3080803
 URL="http://www.sqlite.org/2015/sqlite-autoconf-$VERSION.tar.gz"
 DEB_HOST_MULTIARCH=`dpkg-architecture -qDEB_HOST_MULTIARCH`
 
-sudo apt-get remove sqlite3 libsqlite3-dev libsqlite3-0
-
 mkdir -p "$WORKING_DIR"
 cd "$WORKING_DIR"
 
