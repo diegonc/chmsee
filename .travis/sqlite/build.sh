@@ -20,6 +20,12 @@ tar -xzf "sqlite-autoconf-$VERSION.tar.gz" -C src
 
 cd "src/sqlite-autoconf-$VERSION"
 
+export CFLAGS="-O2 -fno-strict-aliasing \
+	-DSQLITE_SECURE_DELETE -DSQLITE_ENABLE_COLUMN_METADATA \
+	-DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_RTREE=1 -DSQLITE_SOUNDEX=1 \
+	-DSQLITE_ENABLE_UNLOCK_NOTIFY \
+	-DSQLITE_OMIT_LOOKASIDE=1"
+
 ./configure --prefix=/usr --disable-static \
        --libdir=\${prefix}/lib/$DEB_HOST_MULTIARCH \
        --libexecdir=\${libdir}/sqlite3
