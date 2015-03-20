@@ -51,7 +51,11 @@ build 2>&1 | gzip -c > "$WORKING_DIR/build.log.gz" || {
 	zcat "$WORKING_DIR/build.log.gz" | tail -n500
 	exit $STATUS
 }
+
 kill $HEARTBEAT_PID || true
+echo Recent log:
+zcat "$WORKING_DIR/build.log.gz" | tail -n500
+
 
 sudo make -f client.mk DESTDIR="/usr" install
 
