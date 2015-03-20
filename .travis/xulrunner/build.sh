@@ -25,13 +25,13 @@ cp "$CWD/.travis/xulrunner/mozconfig" .mozconfig
 heartbeat() {
   local i=0
   while true; do
-    echo -n ".";
+    echo -n "."
     let "i += 1"
     if [ "$i" -eq 79 ]; then
       echo
-      let i=0
+      let i=0 || true
     fi
-    sleep 1;
+    sleep 1
   done
 }
 heartbeat &
