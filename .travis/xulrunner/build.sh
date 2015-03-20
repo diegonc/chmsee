@@ -37,7 +37,7 @@ heartbeat() {
 heartbeat &
 HEARTBEAT_PID=$!
 
-make -f client.mk build | gzip -c > "$WORKING_DIR/build.log.gz" || {
+make -f client.mk build 2>&1 | gzip -c > "$WORKING_DIR/build.log.gz" || {
 	STATUS=$?
 	kill $HEARTBEAT_PID
 	echo
