@@ -8,7 +8,7 @@ trap 'STATUS=$?; cd "$CWD"; exit $STATUS' ERR
 WORKING_DIR="`cd .. && pwd`/chmsee-deps/sqlite"
 VERSION=3080803
 URL="http://www.sqlite.org/2015/sqlite-autoconf-$VERSION.tar.gz"
-DEB_HOST_MULTIARCH=`dpkg-arichitecture -qDEB_HOST_MULTIARCH`
+DEB_HOST_MULTIARCH=`dpkg-architecture -qDEB_HOST_MULTIARCH`
 
 sudo apt-get remove sqlite3 libsqlite3-dev libsqlite3-0
 
