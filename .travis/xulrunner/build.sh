@@ -6,7 +6,7 @@ set -e
 trap 'STATUS=$?; cd "$CWD"; exit $STATUS' ERR
 
 WORKING_DIR="`cd .. && pwd`/chmsee-deps/xulrunner"
-VERSION=37.0
+VERSION=37.0.1
 TAR_FILE=xulrunner-$VERSION.en-US.linux-x86_64.sdk.tar.bz2
 URL="ftp://ftp.mozilla.org/pub/mozilla.org/xulrunner/releases/$VERSION/sdk/$TAR_FILE"
 
