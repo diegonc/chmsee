@@ -33,7 +33,7 @@ LDFLAGS            += ${DEFINES} \
 	              ${INCLUDES} \
 		      ${MOZ_DEBUG_DISABLE_DEFS} \
 		      ${LIBXUL_SDK}/lib/libxpcomglue_s.a \
-		      -shared -lmozalloc \
+		      -shared \
 		      ${NSPR_LIBS} \
 		      ${CHMLIB_LIBS}
 

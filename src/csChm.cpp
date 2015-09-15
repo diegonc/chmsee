@@ -44,23 +44,23 @@ csChm::~csChm()
 {
         /* destructor code */
         if (mHomepage)
-                nsMemory::Free(mHomepage);
+                NS_Free(mHomepage);
 
         if (mBookname)
-                nsMemory::Free(mBookname);
+                NS_Free(mBookname);
 
         if (mHhc)
-                nsMemory::Free(mHhc);
+                NS_Free(mHhc);
 
         if (mHhk)
-                nsMemory::Free(mHhk);
+                NS_Free(mHhk);
 }
 
 void csChm::copyinfo(char **mTarget, char *iSource)
 {
         if (iSource) {
                 if (*mTarget) {
-                        nsMemory::Free(*mTarget);
+                        NS_Free(*mTarget);
                 }
 
                 *mTarget = (char*) nsMemory::Clone(iSource, strlen(iSource) + 1);
